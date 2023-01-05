@@ -1,0 +1,39 @@
+<template>
+	<lightning-card title="SA Details" icon-name="standard:person_account">
+		<div class="slds-card__body_inner">
+			<!-- Start bear list -->
+			<template if:true={details}>
+				<lightning-layout multiple-rows="true" pull-to-boundary="small">
+					<template for:each={details} for:item="detail">
+						<lightning-layout-item key={detail.Id} size="12" class="slds-var-p-around_x-small" >
+							<!-- Start bear tile -->
+							<lightning-card title={detail.Name__c} class="bear-tile">
+								<div class="slds-var-p-horizontal_small bear-tile-body">
+									<div class="slds-media">
+										<div class="slds-media__figure">
+											
+										</div>
+										<div class="slds-media__body">
+											<p class="slds-var-m-bottom_xx-small">Name: {detail.Name}</p>
+											<p class="slds-var-m-bottom_xx-small">Customer Handled:{detail.Customer_Handled__c}</p>
+											<p class="slds-var-m-bottom_xx-small">Date of Joining: {detail.Date_of_Joining__c}</p>
+                                            <p class="slds-var-m-bottom_xx-small">Experience: {detail.Experience__c}</p>
+										</div>
+									</div>
+								</div>
+							</lightning-card>
+							<!-- End bear tile -->
+						</lightning-layout-item>
+					</template>
+				</lightning-layout>
+			</template>
+			<!-- End bear list -->
+			<!-- Data failed to load -->
+			<template if:true={error}>
+				<div class="slds-text-color_error">
+					An error occurred while loading the bear list
+				</div>
+			</template>
+		</div>
+	</lightning-card>
+</template>
