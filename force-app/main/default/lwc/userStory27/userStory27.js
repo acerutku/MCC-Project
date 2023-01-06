@@ -1,23 +1,12 @@
 import { LightningElement, wire } from 'lwc';
-import getSAdetails from '@salesforce/apex/getSAdetails.getSAdetails';
+import getSAdetail from '@salesforce/apex/getSAdetails.getSAdetail';
+
 
 export default class UserStory27 extends LightningElement {
-    
-    details;
-    error;
+    search = '';
 
-    connectedCallback(){
-        debugger;
-        this.getdetails();
+    searcHandle(event){
+        this.search = event.target.value;
     }
-    getdetails(){
-        getSAdetails()
-        .then(result => {
-            this.details = result;
-        })
-        .catch(error =>{
-            this.error = error;
-        })
-    }
-
+    @wire(getSAdetail, {searchTerm: '$search'})details;
 }

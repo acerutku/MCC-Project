@@ -1,10 +1,30 @@
 public with sharing class getSAdetails {
-    @AuraEnabled(Cacheable=true)
-    public static List<SA_Detail__c> getSAdetails() {
-            List<SA_Detail__c> saList = new List<SA_Detail__c>();
-            saList = [SELECT Name, Id, Name__c, Customer_Handled__c, Date_of_Joining__c, Experience__c FROM SA_Detail__c];  
-            System.debug('saList' +saList);    
-            return saList;
 
+    @AuraEnabled(cacheable=true)
+    public static List<SA_detail__c> getSAdetail(String searchTerm) {
+        searchTerm = searchTerm.trim();
+        if (searchTerm == '') {
+            return getSAdetail();
+        }  
+        
+        searchTerm = '%' + searchTerm + '%';
+        
+        return [
+            SELECT
+                Id,
+                Name,
+                Experience__c,
+                Name__c,
+                Customer_handled__c,
+                Date_of_Joining__c,
+                Location__Latitude__s,
+                Location__Longitude__s,
+                Specilization__c
+            FROM SA_detail__c
+            WHERE Name__c LIKE :searchTerm
+            WITH SECURITY_ENFORCED
+            ORDER BY Name__c
+            LIMIT 50
+        ];
     }
 }
