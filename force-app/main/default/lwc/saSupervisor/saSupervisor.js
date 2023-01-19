@@ -5,7 +5,8 @@ import SUPERVISOR_FIELD from "@salesforce/schema/SA_Detail__c.Supervisor__c";
 export default class SASupervisor extends LightningElement {
   @api recordId;
 
-  @wire(getRecord, { recordId: "$recordId", fields: [SUPERVISOR_FIELD] }) sadetail;
+  @wire(getRecord, { recordId: "$recordId", fields: [SUPERVISOR_FIELD] }) 
+   sadetail;
 
   get supervisorId() {
     return getFieldValue(this.sadetail.data, SUPERVISOR_FIELD);

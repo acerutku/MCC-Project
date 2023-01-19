@@ -7,10 +7,12 @@ import searchSas from "@salesforce/apex/SAManager.searchSas";
 
 export default class SAManageApex extends NavigationMixin(LightningElement) {
   searchTerm = "";
+
   sadetails;
   @wire(MessageContext) messageContext;
 
-  @wire(searchSas, { searchTerm: "$searchTerm" })loadSAdetails(result) {
+  @wire(searchSas, { searchTerm: "$searchTerm" })
+  loadSAdetails(result) {
     this.sadetails = result;
 
     if (result.data) {
@@ -40,6 +42,7 @@ export default class SAManageApex extends NavigationMixin(LightningElement) {
 
   handleSAView(event) {
     const saId = event.detail;
+
     this[NavigationMixin.Navigate]({
       type: "standard__recordPage",
       attributes: {

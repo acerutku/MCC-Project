@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <decisions>
+        <name>TTC_Record</name>
+        <label>TTC Record</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Create_TTC_record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>TTCRecord</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>TTCRecord</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Fill_Requestor</targetReference>
+            </connector>
+            <label>Create TTC record</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Fill Requestor {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Fill Requestor</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_SA_Details</name>
+        <label>Get SA Details</label>
+        <locationX>182</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>TTC_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>SADetail.Name__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>SA_Detail__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Fill_Requestor</name>
+        <label>Fill Requestor</label>
+        <locationX>50</locationX>
+        <locationY>398</locationY>
+        <inputReference>Get_SA_Details</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_SA_Details</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>SADetail</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>SA_Detail__c</objectType>
+    </variables>
+    <variables>
+        <name>TTCRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>TTC_records__c</objectType>
+    </variables>
+</Flow>
