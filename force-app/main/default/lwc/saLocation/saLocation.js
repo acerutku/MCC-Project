@@ -15,11 +15,7 @@ export default class saLocation extends LightningElement {
   name;
   mapMarkers = [];
 
-  @wire(getRecord, {
-    recordId: "$recordId",
-    fields: saFields
-  })
-  loadSA({ error, data }) {
+  @wire(getRecord, {recordId: "$recordId",fields: saFields})loadSA({ error, data }) {
     if (error) {
       console.log(
         "Unexpected error has been occured during getting SA Detail information"
